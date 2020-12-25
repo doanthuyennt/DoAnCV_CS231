@@ -21,5 +21,6 @@ FILTERS = {
     'sharp_center' : 'SharpCenter',
     'emboss_asym'  : 'EmbossAsymmetric',
     'dither'       : 'Dither',
+    'invert'       : 'Invert',
     'hsv'          : 'Hsv',    
 }

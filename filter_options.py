@@ -1,4 +1,6 @@
-from PIL import Image,ImageFilter
+import PIL
+import PIL.ImageOps  
+from PIL import Image,ImageFilter 
 from filter_names import *
 import numpy as np
 
@@ -206,6 +208,15 @@ class EmbossAsymmetric(Filter):
                 0, 0, -1
             )
         return self.image.convert('RGB').filter(EmbossAsymmetricFilter)
+
+
+class Invert(Filter):
+
+    def filter(self,**kwargs) -> Image:
+
+        inverted_image = PIL.ImageOps.invert(self.image)
+
+        return inverted_image
 
 
 class Dither(Filter):
