@@ -5,10 +5,16 @@ import streamlit as st
 import sys
 import urllib
 from PIL import Image
-import filter_options
+
 import enhancement_options
-from filter_names import *
 from enhancement_names import *
+
+import filter_options
+from filter_names import *
+
+import effect_options
+from effect_names import *
+
 import cv2
 
 def call_filter(filter_choose,image_in):
@@ -18,6 +24,10 @@ def call_filter(filter_choose,image_in):
 def call_enhancer(enhancer_choose,image_in):
     eh = getattr(enhancement_options, ENHANCERS[enhancer_choose])(image_in)
     return eh
+
+def call_effect(effect_choose,image_in):
+    ef = getattr(effect_options, EFFECTS[effect_choose])(image_in)
+    return ef
 
 def show_image_option(image_in,image_out):
     view_option = st.sidebar.selectbox("Show Image Option",["Side by Side","Split"])
@@ -42,9 +52,10 @@ def show_image_option(image_in,image_out):
 
 IMAGE_STACK = []
 
-sidebar_op        = st.sidebar.selectbox('',['Show Filter options','Show Enhancement options'])
+sidebar_op        = st.sidebar.selectbox('',['Show Filter options','Show Enhancement options','Show Effect options'])
 filter_names      = list(FILTERS.keys()) 
 enhancement_names = list(ENHANCERS.keys()) 
+effect_names      = list(EFFECTS.keys())
 
 
 def image_handling(image_in):
@@ -81,7 +92,12 @@ def image_handling(image_in):
             params['amount'] = st.sidebar.slider(enhan_choose, min_value = 0.,max_value =  1., value = 1., step = 0.05)
             eh = call_enhancer(enhan_choose,image_in)
             image_out = eh.enhance(**params)
-    
+
+    if sidebar_op == 'Show Effect options':
+        effect_choose = st.sidebar.selectbox("Option",effect_names)
+        ef = call_effect(effect_choose,image_in)
+        image_out = ef.effect(**params)
+
     show_image_option(image_in,image_out)
 
 
