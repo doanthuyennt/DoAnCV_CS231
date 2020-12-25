@@ -32,12 +32,13 @@ class Grain(Effects):
     
 class Feather(Effects):
     def effect(self, **kwargs) -> Image:
-        RADIUS = 10
-
+        
 
         # Paste image on white background
+        RADIUS = st.sidebar.slider('Grain', min_value = 10,max_value =  20, value = 10, step = 2)
+
         diam = 2*RADIUS
-        back = Image.new('RGB', (im.size[0]+diam, im.size[1]+diam), (255,255,255))
+        back = Image.new('RGB', (self.image.size[0]+diam, self.image.size[1]+diam), (255,255,255))
         back.paste(self.image, (RADIUS, RADIUS))
 
         # Create paste mask
@@ -50,6 +51,9 @@ class Feather(Effects):
             alpha = 255 if d<RADIUS else int(255*(diam+RADIUS-d)/diam)
             draw.rectangle([x0, y0, x1, y1], outline=alpha)
             x0, y0 = x0+1, y0+1
+
+        blur = back.filter(ImageFilter.GaussianBlur(RADIUS/2))
+        back.paste(blur, mask=mask)
         
         return back
 
