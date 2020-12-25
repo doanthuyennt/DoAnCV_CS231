@@ -1,6 +1,8 @@
 from skimage.util import random_noise
 from PIL import Image,ImageFilter,ImageDraw
 import numpy as np
+import copy
+
 
 import streamlit as st
 
@@ -31,13 +33,14 @@ class Grain(Effects):
 class Feather(Effects):
     def effect(self, **kwargs) -> Image:
         
+        temp_image = self.image.copy()
 
         # Paste image on white background
-        RADIUS = st.sidebar.slider('Grain', min_value = 10,max_value =  20, value = 10, step = 2)
+        RADIUS = st.sidebar.slider('Feather effect', min_value = 10,max_value =  20, value = 10, step = 2)
 
         diam = 2*RADIUS
-        back = Image.new('RGB', (self.image.size[0]+diam, self.image.size[1]+diam), (255,255,255))
-        back.paste(self.image, (RADIUS, RADIUS))
+        back = Image.new('RGB', (temp_image.size[0]+diam, temp_image.size[1]+diam), (255,255,255))
+        back.paste(temp_image, (RADIUS, RADIUS))
 
         # Create paste mask
         mask = Image.new('L', back.size, 0)

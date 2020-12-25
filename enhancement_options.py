@@ -1,6 +1,6 @@
 from PIL import Image,ImageEnhance
 from enhancement_names import *
-from news import create_loopup_tables
+from enhan_utils import create_loopup_tables
 import cv2
 import numpy as np
 class ImageEnhancer:
