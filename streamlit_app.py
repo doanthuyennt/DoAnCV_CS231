@@ -84,10 +84,10 @@ def image_handling(image_in):
             eh = call_enhancer(enhan_choose,image_in)
             image_out = eh.enhance(**params)
         if enhan_choose in ['warm','cool']:
-            image_in  = cv2.imread(name)
+            image_in  = cv2.imread('image/USE_THIS.jpg')
             eh = call_enhancer(enhan_choose,image_in)
             image_out = eh.enhance(**params)
-            image_in  = Image.open(UPLOADED_IMAGE)
+            image_in  = Image.open('image/USE_THIS.jpg')
         if enhan_choose in ['sepia','saturate']:
             params['amount'] = st.sidebar.slider(enhan_choose, min_value = 0.,max_value =  1., value = 1., step = 0.05)
             eh = call_enhancer(enhan_choose,image_in)
@@ -118,7 +118,6 @@ def main():
         IMAGE = Image.open(UPLOADED_IMAGE)
         IMAGE = IMAGE.convert('RGB')
         IMAGE.save('image/USE_THIS.jpg')
-        name = 'image/USE_THIS.jpg'
 
     image_in = IMAGE
     image_handling(image_in)
