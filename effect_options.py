@@ -1,7 +1,5 @@
 from skimage.util import random_noise
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFilter
+from PIL import Image,ImageFilter,ImageDraw
 import numpy as np
 
 import streamlit as st
@@ -54,7 +52,27 @@ class Feather(Effects):
 
         blur = back.filter(ImageFilter.GaussianBlur(RADIUS/2))
         back.paste(blur, mask=mask)
-        
+
         return back
 
+class Invert(Effects):
 
+    def effect(self,**kwargs) -> Image:
+
+        inverted_image = PIL.ImageOps.invert(self.image)
+
+        return inverted_image
+
+class Dither(Effects):
+    ''' RGB -> CMYK -> halftone each channel -> Gray -> Merge
+    '''
+    def effect(self,**kwargs) -> Image:
+
+        cmyk    = self.image.convert('CMYK').split()     
+        # c,m,y,k = tuple([cmyk[i].convert('1').convert('L') for i in range(4)])
+        c = cmyk[0].convert('1').convert('L')   
+        m = cmyk[1].convert('1').convert('L')   
+        y = cmyk[2].convert('1').convert('L')
+        k = cmyk[3].convert('1').convert('L')
+        # return Image.merge('CMYK',[c,m,y,k])
+        return Image.merge('CMYK',[c,m,y,k]).convert('RGB')

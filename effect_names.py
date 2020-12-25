@@ -1,4 +1,6 @@
 EFFECTS = {
     'Grain'  : 'Grain',
-    'Feather': 'Feather'
+    'Feather': 'Feather',
+    'dither' : 'Dither',
+    'invert' : 'Invert',
 }

@@ -71,7 +71,7 @@ def image_handling(image_in):
             params['radius'] = radius
         if filter_choose in ['max','min','median','mode']:
             size = st.sidebar.slider(filter_choose, min_value = 3,max_value =  7, value = None, step = 2)
-            params['size'] = size
+            params['s'] = size
 
         f = call_filter(filter_choose,image_in)
         image_out = f.filter(**params)

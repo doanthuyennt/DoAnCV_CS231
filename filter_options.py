@@ -3,6 +3,8 @@ import PIL.ImageOps
 from PIL import Image,ImageFilter 
 from filter_names import *
 import numpy as np
+import cv2
+import streamlit as st
 
 class Filter:
 
@@ -117,14 +119,15 @@ class MinFilter(Filter):
             s = 3
         return self.image.convert('RGB').filter(ImageFilter.MinFilter(size=s))
 
-
 class MedianFilter(Filter):
     def filter(self, **kwargs) -> Image:
         if 'size' in kwargs:
             s = int(kwargs['size'])
         else:
             s = 3
-        return self.image.convert('RGB').filter(ImageFilter.MedianFilter(size=s))
+        image_array = np.asarray(self.image)
+        image_array = cv2.medianBlur(image_array,s)
+        return Image.fromarray(image_array)
 
 
 class MaxFilter(Filter):
@@ -210,25 +213,3 @@ class EmbossAsymmetric(Filter):
         return self.image.convert('RGB').filter(EmbossAsymmetricFilter)
 
 
-class Invert(Filter):
-
-    def filter(self,**kwargs) -> Image:
-
-        inverted_image = PIL.ImageOps.invert(self.image)
-
-        return inverted_image
-
-
-class Dither(Filter):
-    ''' RGB -> CMYK -> halftone each channel -> Gray -> Merge
-    '''
-    def filter(self,**kwargs) -> Image:
-
-        cmyk    = self.image.convert('CMYK').split()     
-        # c,m,y,k = tuple([cmyk[i].convert('1').convert('L') for i in range(4)])
-        c = cmyk[0].convert('1').convert('L')   
-        m = cmyk[1].convert('1').convert('L')   
-        y = cmyk[2].convert('1').convert('L')
-        k = cmyk[3].convert('1').convert('L')
-        # return Image.merge('CMYK',[c,m,y,k])
-        return Image.merge('CMYK',[c,m,y,k]).convert('RGB')
