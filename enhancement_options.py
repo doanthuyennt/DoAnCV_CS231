@@ -83,8 +83,6 @@ class Cool(ImageEnhancer):
 
         return cooled
 
-
-
 class Sepia(ImageEnhancer):
     '''https://www.w3.org/TR/filter-effects-1/#sepiaEquivalent'''
     def enhance(self,**kwargs):

@@ -39,24 +39,24 @@ class Feather(Effects):
         RADIUS = st.sidebar.slider('Feather effect', min_value = 10,max_value =  20, value = 10, step = 2)
 
         diam = 2*RADIUS
-        back = Image.new('RGB', (temp_image.size[0]+diam, temp_image.size[1]+diam), (255,255,255))
-        back.paste(temp_image, (RADIUS, RADIUS))
+        Feathered = Image.new('RGB', (temp_image.size[0]+diam, temp_image.size[1]+diam), (255,255,255))
+        Feathered.paste(temp_image, (RADIUS, RADIUS))
 
         # Create paste mask
-        mask = Image.new('L', back.size, 0)
+        mask = Image.new('L', Feathered.size, 0)
         draw = ImageDraw.Draw(mask)
         x0, y0 = 0, 0
-        x1, y1 = back.size
+        x1, y1 = Feathered.size
         for d in range(diam+RADIUS):
             x1, y1 = x1-1, y1-1
             alpha = 255 if d<RADIUS else int(255*(diam+RADIUS-d)/diam)
             draw.rectangle([x0, y0, x1, y1], outline=alpha)
             x0, y0 = x0+1, y0+1
 
-        blur = back.filter(ImageFilter.GaussianBlur(RADIUS/2))
-        back.paste(blur, mask=mask)
+        blur = Feathered.filter(ImageFilter.GaussianBlur(RADIUS/2))
+        Feathered.paste(blur, mask=mask)
 
-        return back
+        return Feathered 
 
 class Invert(Effects):
 
