@@ -18,14 +18,18 @@ First upload your image:\
 
 There currently 3 main options:\
 	![3 main options](/repo_images/3_main_options.png)
+<br/><br/>
 Each has a lot of options for you to play around with: 
 
 1.Filter options
 	![Filter options](/repo_images/Filter_options.png)
+<br/><br/>
 2.Enhancement options
 	![Enhancement options](/repo_images/Enhancement_options.png)
+<br/><br/>
 3.Effect options
 	![Effect options](/repo_images/Effect_options.png)
+<br/><br/>
 
 
 
