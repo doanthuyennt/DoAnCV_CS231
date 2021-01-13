@@ -17,16 +17,16 @@ First upload your image:\
 ![Upload image](/repo_images/upload_your_image.png)
 
 There currently 3 main options:\
-![3 main options](/repo_images/3_main_options.png)
-\Each has a lot of options for you to play around with: 
-<ol>
-<li>Filter options</li>
+	![3 main options](/repo_images/3_main_options.png)
+Each has a lot of options for you to play around with: 
+
+1.Filter options
 	![Filter options](/repo_images/Filter_options.png)
-<li>Enhancement options</li>
+2.Enhancement options
 	![Enhancement options](/repo_images/Enhancement_options.png)
-<li>Effect options</li>
+3.Effect options
 	![Effect options](/repo_images/Effect_options.png)
-</ol>
+
 
 
 There also an option for side by side or split view mode:\
